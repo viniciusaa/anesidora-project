@@ -13,3 +13,82 @@
  *= require_tree .
  *= require_self
  */
+
+.body-margin {
+  margin-top: 3%;
+}
+
+.center {
+  text-align: center;
+}
+
+/* navbar background color */
+.navbar-custom {
+  background-color: #212629;
+}
+
+/* navbar brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: #ffffff;
+}
+
+/* navbar link color */
+.navbar-custom .navbar-nav .nav-link {
+  color: #82c045;
+}
+
+.navbar-custom p {
+  color: rgba(255,255,255,.6);
+  line-height:43px;
+  margin:0;
+}
+
+/* navbar color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: #5e8739;
+}
+
+/* navbar color of toggler button */
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+/* navbar color of toggler button border */
+.custom-toggler.navbar-toggler {
+  border-color: #ffffff;
+}
+
+/* Different margin sizes */
+.sspace {
+  margin-bottom: 1%;
+}
+
+.space {
+  margin-bottom: 3%;
+}
+
+.mspace {
+  margin-bottom: 5%;
+}
+
+.xspace {
+  margin-bottom: 10%;
+}
+
+.sspace-top {
+  margin-top: 3%;
+}
+
+.space-top {
+  margin-top: 5%;
+}
+
+.xspace-top {
+  margin-top: 10%;
+}
+
+.space-right {
+  margin-right: 6px;
+}
