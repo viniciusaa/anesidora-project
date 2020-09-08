@@ -73,13 +73,13 @@
 
 /* Button customization */
 
-.btn-success {
+.btn-success, .btn-success:visited {
   background-color: #212629 !important;
   color: #82c045 !important;
   border-color: #82c045 !important;
 }
 
-.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success:visited {
+.btn-success:hover, .btn-success:focus, .btn-success:active {
   background-color: #212629 !important;
   color: #5e8739 !important;
   border-color: #5e8739 !important;

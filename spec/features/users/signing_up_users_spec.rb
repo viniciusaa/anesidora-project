@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Sign Up", :type => :feature do
   before do
-    visit "/users/sign_up"
+    visit "/"
     click_link "Signup"
   end
 

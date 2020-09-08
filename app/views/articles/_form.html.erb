@@ -1,0 +1,19 @@
+<%= render "shared/errors", obj: @article %>
+<!-- Form -->
+<div class="xspace">
+  <%= form_for @article do |f| %>
+    <div class="space space-top">
+      <div class="row col-12">
+        <b><%= f.label :name %></b>
+      </div>
+
+      <div class="row col-md-8 col-lg-6">
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row col-12">
+      <%= f.submit "Confirm", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>

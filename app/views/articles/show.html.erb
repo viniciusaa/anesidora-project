@@ -1,0 +1,11 @@
+<%= render "shared/title", title: "Displaying Article", subtitle: "" %>
+
+<h1 class="space"><%= @article.name %></h1>
+
+<div class="xspace">
+  <%= link_to "Create article body", "#", class: "btn btn-success" %>
+</div>
+
+<div>
+  <%= link_to "Return", articles_path, class: "btn btn-success" %>
+</div>

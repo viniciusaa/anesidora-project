@@ -1,0 +1,17 @@
+<%= render "shared/title", title: "Articles", subtitle: "" %>
+
+<div>
+  <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
+</div>
+
+<% @articles.each do |article| %>
+  <div class="card border-success space col-sm-12 col-lg-8">
+    <div class="card-body">
+      <u>
+        <h5 class="card-title">
+          <%= link_to article.name, article_path(article), class: "text-dark" %>
+        </h5>
+      </u>
+    </div>
+  </div>
+<% end %>
