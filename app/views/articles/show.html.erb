@@ -1,10 +1,37 @@
-<%= render "shared/title", title: "Displaying Article", subtitle: "" %>
+<%= render "shared/title", title: @article.name, subtitle: "" %>
 
-<h1 class="space"><%= @article.name %></h1>
+<% if @article_bodies %>
+  <div class="offset-4 offset-md-5 space">
+    <%= will_paginate @article_bodies %>
+  </div>
 
-<div class="xspace">
-  <%= link_to "Create article body", "#", class: "btn btn-success" %>
-</div>
+  <% @article_bodies.each do |article_body| %>
+    <div class="xspace">
+      <p class="space"><%= article_body.body %></p>
+      <p class="small"><b>
+        Created on <%= article_body.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
+        <br />
+        Version: <%= article_body.version %>
+      </b></p>
+    </div>
+    <div class="mspace">
+      <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
+      <%= link_to "Create new version", edit_article_article_body_path(@article, article_body),
+                                     class: "btn btn-success" %>
+      <u><%= link_to "Delete version", article_article_body_path(@article, article_body),
+                                    method: :delete,
+                                    data: {confirm: "Are you sure?"},
+                                    class: "btn btn-success" %></u>
+    </div>
+  <% end %>
+
+<% else %>
+  <div class="xspace">
+    <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
+    <%= link_to "Create article body", new_article_article_body_path(@article),
+                                       class: "btn btn-success" %>
+  </div>
+<% end %>
 
 <div>
   <%= link_to "Return", articles_path, class: "btn btn-success" %>

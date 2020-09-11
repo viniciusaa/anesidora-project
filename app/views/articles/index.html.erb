@@ -7,11 +7,15 @@
 <% @articles.each do |article| %>
   <div class="card border-success space col-sm-12 col-lg-8">
     <div class="card-body">
-      <u>
-        <h5 class="card-title">
-          <%= link_to article.name, article_path(article), class: "text-dark" %>
-        </h5>
-      </u>
+      <h5 class="card-title">
+        <u><%= link_to article.name, article_path(article), class: "text-dark" %></u>
+        <p class="space small">Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u></p>
+
+        <u><%= link_to "Delete article", article_path(article),
+                                         method: :delete,
+                                         data: {confirm: "Are you sure?"},
+                                         class: "btn btn-success btn-sm" %></u>
+      </h5>
     </div>
   </div>
 <% end %>
