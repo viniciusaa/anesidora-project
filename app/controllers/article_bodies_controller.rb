@@ -2,6 +2,7 @@ class ArticleBodiesController < ApplicationController
   before_action :authenticate_user!
   before_action :select_article_body, except: [:new, :create]
   before_action :select_article
+  before_action :require_same_user
 
   def new
     @article_body = @article.article_bodies.new
@@ -49,5 +50,12 @@ class ArticleBodiesController < ApplicationController
 
   def select_article
     @article = Article.find(params[:article_id])
+  end
+
+  def require_same_user
+    if @article.user != current_user
+      flash[:alert] = "Only the article owner can perform this action"
+      redirect_to root_path
+    end
   end
 end

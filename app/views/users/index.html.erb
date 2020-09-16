@@ -1,0 +1,17 @@
+<%= render "shared/title", title: "All users", subtitle: "" %>
+
+<% @users.each do |user| %>
+  <div class="card border-success mspace col-sm-12 col-lg-8">
+    <div class="card-body">
+      <h5 class="card-title">
+        <u><%= link_to user.full_name, user_path(user), class: "text-dark" %></u>
+      </h5>
+      <p class="card-text" style="margin:0;">Number of articles: <%= user.articles.count %></p>
+      <p class="card-text">Signed in: <%= user.created_at.strftime("%d/%m/%Y") %></p>
+    </div>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "Return", root_path, class: "btn btn-success" %>
+</div>

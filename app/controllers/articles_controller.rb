@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
   before_action :select_article, except: [:new, :create, :index]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def new
     @article = current_user.articles.new
@@ -30,7 +31,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = current_user.articles
+    @articles = Article.all
   end
 
   def show
@@ -51,5 +52,12 @@ class ArticlesController < ApplicationController
 
   def select_article
     @article = Article.find(params[:id])
+  end
+
+  def require_same_user
+    if @article.user != current_user
+      flash[:alert] = "Only the article owner can perform this action"
+      redirect_to root_path
+    end
   end
 end

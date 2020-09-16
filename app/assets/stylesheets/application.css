@@ -71,7 +71,7 @@
   color: #82c045;
 }
 
-/* Button customization */
+/* Success Button customization */
 
 .btn-success, .btn-success:visited {
   background-color: #212629 !important;
@@ -83,6 +83,20 @@
   background-color: #212629 !important;
   color: #5e8739 !important;
   border-color: #5e8739 !important;
+}
+
+/* Danger Button customization */
+
+.btn-danger, .btn-danger:visited {
+  background-color: #212629 !important;
+  color: #db3232 !important;
+  border-color: #db3232 !important;
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+  background-color: #212629 !important;
+  color: #ab2929 !important;
+  border-color: #ab2929 !important;
 }
 
 /* Different margin sizes */
@@ -116,6 +130,14 @@
 
 .space-right {
   margin-right: 6px;
+}
+
+.space-left {
+  margin-left: 10px;
+}
+
+.danger {
+  color: red;
 }
 
 /* Devise error messages */

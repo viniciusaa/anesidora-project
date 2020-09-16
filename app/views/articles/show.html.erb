@@ -14,22 +14,36 @@
         Version: <%= article_body.version %>
       </b></p>
     </div>
-    <div class="mspace">
+    <div class="sspace">
       <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
       <%= link_to "Create new version", edit_article_article_body_path(@article, article_body),
                                      class: "btn btn-success" %>
-      <u><%= link_to "Delete version", article_article_body_path(@article, article_body),
-                                    method: :delete,
-                                    data: {confirm: "Are you sure?"},
-                                    class: "btn btn-success" %></u>
+    </div>
+    <div class="mspace">
+      <% if @article.user == current_user %>
+        <u><%= link_to "Delete version", article_article_body_path(@article, article_body),
+                                      method: :delete,
+                                      data: {confirm: "Are you sure?"},
+                                      class: "btn btn-danger" %></u>
+        <u><%= link_to "Delete article", article_path(@article),
+                                         method: :delete,
+                                         data: {confirm: "Are you sure?"},
+                                         class: "btn btn-danger" %></u>
+      <% end %>
     </div>
   <% end %>
 
 <% else %>
-  <div class="xspace">
+  <div class="sspace">
     <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
     <%= link_to "Create article body", new_article_article_body_path(@article),
                                        class: "btn btn-success" %>
+  </div>
+  <div class="mspace">
+    <u><%= link_to "Delete article", article_path(@article),
+                                     method: :delete,
+                                     data: {confirm: "Are you sure?"},
+                                     class: "btn btn-danger" %></u>
   </div>
 <% end %>
 

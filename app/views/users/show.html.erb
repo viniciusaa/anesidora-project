@@ -1,0 +1,35 @@
+<%= render "shared/title", title: "#{@user.first_name} articles", subtitle: "" %>
+
+<div class="mspace">
+  <p style="margin:0;">Name: <b><%= @user.full_name %></b></p>
+  <p style="margin:0;">Number of articles: <%= @user.articles.count %></p>
+  <p>Signed in: <%= @user.created_at.strftime("%d/%m/%Y") %></p>
+</div>
+
+<h4>Articles:</h4>
+<% if @user.articles.any? %>
+  <% @user.articles.each do |article| %>
+    <div class="card border-success mspace col-sm-12 col-lg-8">
+      <div class="card-body">
+        <h5 class="card-title">
+          <u><%= link_to article.name, article_path(article), class: "text-dark" %></u>
+          <p class="space small">Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u></p>
+          <% if article.user == current_user %>
+            <u><%= link_to "Delete article", article_path(article),
+                                             method: :delete,
+                                             data: {confirm: "Are you sure?"},
+                                             class: "btn btn-danger btn-sm" %></u>
+          <% end %>
+        </h5>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="mspace danger">
+    <h5>Still no articles to display</h5>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "Return", users_path, class: "btn btn-success" %>
+</div>
