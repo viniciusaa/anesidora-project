@@ -8,7 +8,8 @@
   <div class="card border-success space col-sm-12 col-lg-8">
     <div class="card-body">
       <h5 class="card-title">
-        <u><%= link_to article.name, article_path(article), class: "text-dark" %></u>
+        <p style="margin:0;"><u><%= link_to article.name, article_path(article), class: "text-dark" %></u></p>
+        <p class="space small" style="margin:0;">Author: <u><%= link_to article.user.full_name, user_path(article.user), class: "text-dark" %></u></p>
         <p class="space small">Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u></p>
         <% if article.user == current_user %>
           <u><%= link_to "Delete article", article_path(article),
@@ -20,3 +21,7 @@
     </div>
   </div>
 <% end %>
+
+<div>
+  <%= link_to "Return", root_path, class: "btn btn-success" %>
+</div>

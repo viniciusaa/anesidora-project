@@ -1,14 +1,15 @@
 require "rails_helper"
 
-RSpec.feature "Display articles", :type => :feature do
+RSpec.feature "Display article", :type => :feature do
   before do
     @user = create(:user)
-    @first_article = create(:article)
-    @second_article = create(:article)
+    @second_user = create(:user)
+    @first_article = create(:article, user_id: @user.id)
+    @second_article = create(:article, user_id: @second_user.id)
     login_as(@user)
   end
 
-  scenario "With valid name" do
+  scenario "display article" do
     visit "/"
     click_link "Articles"
 

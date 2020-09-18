@@ -9,18 +9,20 @@
     <div class="xspace">
       <p class="space"><%= article_body.body %></p>
       <p class="small"><b>
-        Created on <%= article_body.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
+        Created on <%= @article.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
         <br />
         Version: <%= article_body.version %>
+        <br />
+        Version created on <%= article_body.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
       </b></p>
     </div>
-    <div class="sspace">
-      <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
-      <%= link_to "Create new version", edit_article_article_body_path(@article, article_body),
-                                     class: "btn btn-success" %>
-    </div>
-    <div class="mspace">
-      <% if @article.user == current_user %>
+    <% if @article.user == current_user %>
+      <div class="sspace">
+        <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
+        <%= link_to "Create new version", edit_article_article_body_path(@article, article_body),
+                                       class: "btn btn-success" %>
+      </div>
+      <div class="mspace">
         <u><%= link_to "Delete version", article_article_body_path(@article, article_body),
                                       method: :delete,
                                       data: {confirm: "Are you sure?"},
@@ -29,24 +31,27 @@
                                          method: :delete,
                                          data: {confirm: "Are you sure?"},
                                          class: "btn btn-danger" %></u>
-      <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <p class="mspace danger"><b>Body hasn't been created</b></p>
+  <% if @article.user == current_user %>
+    <div class="sspace">
+      <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
+      <%= link_to "Create article body", new_article_article_body_path(@article),
+                                         class: "btn btn-success" %>
+    </div>
+    <div class="mspace">
+      <u><%= link_to "Delete article", article_path(@article),
+                                       method: :delete,
+                                       data: {confirm: "Are you sure?"},
+                                       class: "btn btn-danger" %></u>
     </div>
   <% end %>
-
-<% else %>
-  <div class="sspace">
-    <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
-    <%= link_to "Create article body", new_article_article_body_path(@article),
-                                       class: "btn btn-success" %>
-  </div>
-  <div class="mspace">
-    <u><%= link_to "Delete article", article_path(@article),
-                                     method: :delete,
-                                     data: {confirm: "Are you sure?"},
-                                     class: "btn btn-danger" %></u>
-  </div>
 <% end %>
 
 <div>
-  <%= link_to "Return", articles_path, class: "btn btn-success" %>
+  <p><%= link_to "Return to articles index", articles_path, class: "btn btn-success" %></p>
+  <p><%= link_to "Return to your articles", user_path(current_user), class: "btn btn-success" %></p>
 </div>

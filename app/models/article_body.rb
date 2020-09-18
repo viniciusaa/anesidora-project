@@ -1,5 +1,7 @@
 class ArticleBody < ApplicationRecord
   validates :body, presence: true, length: { minimum: 4, maximum: 10000 }
+  validates :article_id, presence: true
+
   default_scope -> { order(created_at: :desc) }
 
   def version
