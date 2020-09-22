@@ -36,6 +36,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article_bodies = @article.article_bodies.paginate(page: params[:page], per_page: 1) if @article.article_bodies.any?
+    @contributors = @article.contributors.map{ |index| User.find(index) }
   end
 
   def destroy

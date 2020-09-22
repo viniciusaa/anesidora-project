@@ -6,8 +6,13 @@
   <p>Signed in: <%= @user.created_at.strftime("%d/%m/%Y") %></p>
 </div>
 
-<h4>Articles:</h4>
+<div class="space">
+  <h4>Articles:</h4>
+</div>
 <% if @user.articles.any? %>
+  <div>
+    <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
+  </div>
   <% @user.articles.each do |article| %>
     <div class="card border-success mspace col-sm-12 col-lg-8">
       <div class="card-body">
@@ -25,6 +30,9 @@
     </div>
   <% end %>
 <% else %>
+  <div>
+    <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
+  </div>
   <div class="mspace danger">
     <h5>Still no articles to display</h5>
   </div>

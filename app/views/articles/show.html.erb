@@ -6,7 +6,7 @@
   </div>
 
   <% @article_bodies.each do |article_body| %>
-    <div class="xspace">
+    <div class="mspace">
       <p class="space"><%= article_body.body %></p>
       <p class="small"><b>
         Created on <%= @article.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
@@ -21,11 +21,15 @@
         <h5>Article Options:</h5>
       </div>
       <div class="sspace">
+        <%= link_to "Add contributors", article_contributor_path(@article), class: "btn btn-success" %>
+      </div>
+
+      <div class="sspace">
         <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
         <%= link_to "Create new version", edit_article_article_body_path(@article, article_body),
                                        class: "btn btn-success" %>
       </div>
-      <div class="mspace">
+      <div class="space">
         <u><%= link_to "Delete version", article_article_body_path(@article, article_body),
                                       method: :delete,
                                       data: {confirm: "Are you sure?"},
@@ -41,11 +45,18 @@
   <p class="mspace danger"><b>Body hasn't been created</b></p>
   <% if @article.user == current_user %>
     <div class="sspace">
+      <h5>Article Options:</h5>
+    </div>
+    <div class="sspace">
+      <%= link_to "Add contributors", article_contributor_path(@article), class: "btn btn-success" %>
+    </div>
+
+    <div class="sspace">
       <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-success" %>
       <%= link_to "Create article body", new_article_article_body_path(@article),
                                          class: "btn btn-success" %>
     </div>
-    <div class="mspace">
+    <div class="space">
       <u><%= link_to "Delete article", article_path(@article),
                                        method: :delete,
                                        data: {confirm: "Are you sure?"},
@@ -53,6 +64,14 @@
     </div>
   <% end %>
 <% end %>
+
+<div class="xspace">
+  <h5>Contributors:</h5>
+  <p class="danger"><b>No contributors yet</b></p>
+  <% @contributors.each do |contributor| %>
+    <p style="margin:0;">-<%= contributor.full_name %></p>
+  <% end %>
+</div>
 
 <div>
   <p><%= link_to "Return to articles index", articles_path, class: "btn btn-success" %></p>
