@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   root "pages#home"
   resources :articles do
     resources :article_bodies
-    resources :contributors, :only => [:show, :update]
+    resources :contributors, :only => [:index, :update]
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

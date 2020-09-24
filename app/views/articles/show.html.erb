@@ -21,7 +21,7 @@
         <h5>Article Options:</h5>
       </div>
       <div class="sspace">
-        <%= link_to "Add contributors", article_contributor_path(@article), class: "btn btn-success" %>
+        <%= link_to "Add contributors", article_contributors_path(@article), class: "btn btn-success" %>
       </div>
 
       <div class="sspace">
@@ -48,7 +48,7 @@
       <h5>Article Options:</h5>
     </div>
     <div class="sspace">
-      <%= link_to "Add contributors", article_contributor_path(@article), class: "btn btn-success" %>
+      <%= link_to "Add contributors", article_contributors_path(@article), class: "btn btn-success" %>
     </div>
 
     <div class="sspace">
@@ -67,9 +67,8 @@
 
 <div class="xspace">
   <h5>Contributors:</h5>
-  <p class="danger"><b>No contributors yet</b></p>
-  <% @contributors.each do |contributor| %>
-    <p style="margin:0;">-<%= contributor.full_name %></p>
+  <% @article.contributors.each do |contributor| %>
+    <u><p style="margin:0;"><%= link_to contributor.full_name, user_path(contributor), class: "text-dark" %></p></u>
   <% end %>
 </div>
 

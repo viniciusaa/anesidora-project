@@ -1,18 +1,16 @@
 class ContributorsController < ApplicationController
   before_action :authenticate_user!
 
-  def show
+  def index
     @article = Article.find(params[:article_id])
-    @users = User.all.reject { |user| @article.contributors.include?(user.id) ||
-                                      user == current_user }
+    @users = User.all.reject { |user| user == current_user || @article.contributors.include?(user)}
   end
 
   def update
     @user = User.find(params[:id])
     @article = Article.find(params[:article_id])
-    @article.contributors += [@user.id.to_s]
 
-    if @article.save
+    if @article.contributors << @user
       flash[:notice] = "Contributor added"
       redirect_to article_path(@article)
     else

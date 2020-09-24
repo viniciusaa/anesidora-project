@@ -10,31 +10,52 @@
   <h4>Articles:</h4>
 </div>
 <% if @user.articles.any? %>
-  <div>
+  <% if @user == current_user %>
     <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
-  </div>
+  <% end %>
   <% @user.articles.each do |article| %>
     <div class="card border-success mspace col-sm-12 col-lg-8">
       <div class="card-body">
-        <h5 class="card-title">
+        <h5>
           <u><%= link_to article.name, article_path(article), class: "text-dark" %></u>
-          <p class="space small">Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u></p>
-          <% if article.user == current_user %>
-            <u><%= link_to "Delete article", article_path(article),
-                                             method: :delete,
-                                             data: {confirm: "Are you sure?"},
-                                             class: "btn btn-danger btn-sm" %></u>
-          <% end %>
         </h5>
+        <p style="margin:0;">Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u></p>
+        <% if article.user == current_user %>
+          <u><%= link_to "Delete article", article_path(article),
+                                           method: :delete,
+                                           data: {confirm: "Are you sure?"},
+                                           class: "btn btn-danger btn-sm sspace-top" %></u>
+        <% end %>
       </div>
     </div>
   <% end %>
 <% else %>
-  <div>
+  <% if @user == current_user %>
     <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
-  </div>
+  <% end %>
   <div class="mspace danger">
     <h5>Still no articles to display</h5>
+  </div>
+<% end %>
+
+<div class="space">
+  <h4>Contributions:</h4>
+</div>
+<% if @user.doings.any? %>
+  <% @user.doings.each do |article| %>
+    <div class="card border-success mspace col-sm-12 col-lg-8">
+      <div class="card-body">
+        <h5>
+          <u><%= link_to article.name, article_path(article), class: "text-dark" %></u>
+        </h5>
+        <p style="margin:0;">Author: <u><%= article.user.full_name %></u></p>
+        <p style="margin:0;">Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u></p>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="mspace danger">
+    <h5>Not contributing to any article</h5>
   </div>
 <% end %>
 
