@@ -2,7 +2,7 @@ class ArticleBodiesController < ApplicationController
   before_action :authenticate_user!
   before_action :select_article_body, except: [:new, :create]
   before_action :select_article
-  before_action :require_same_user
+  before_action :require_user_or_contributor
 
   def new
     @article_body = @article.article_bodies.new
@@ -52,9 +52,9 @@ class ArticleBodiesController < ApplicationController
     @article = Article.find(params[:article_id])
   end
 
-  def require_same_user
-    if @article.user != current_user
-      flash[:alert] = "Only the article owner can perform this action"
+  def require_user_or_contributor
+    unless @article.user == current_user || @article.contributors.include?(current_user)
+      flash[:alert] = "Only the article owner or contributor can perform this action"
       redirect_to root_path
     end
   end
