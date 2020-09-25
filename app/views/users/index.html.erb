@@ -1,5 +1,9 @@
 <%= render "shared/title", title: "Users", subtitle: "" %>
 
+<div class="offset-4 offset-md-5 space">
+  <%= will_paginate @articles %>
+</div>
+
 <% @users.each do |user| %>
   <div class="card border-success space col-sm-12 col-lg-8">
     <div class="card-body">

@@ -1,19 +1,25 @@
-<%= render "shared/title", title: "#{@user.first_name} articles", subtitle: "" %>
+<%= render "shared/title", title: "#{@user.first_name} info", subtitle: "" %>
 
 <div class="mspace">
   <p style="margin:0;">Name: <b><%= @user.full_name %></b></p>
-  <p style="margin:0;">Number of articles: <%= @user.articles.count %></p>
+  <p style="margin:0;">Number of articles: <%= @articles.count %></p>
+  <p style="margin:0;">Number of contributions: <%= @contributions.count %></p>
   <p>Signed in: <%= @user.created_at.strftime("%d/%m/%Y") %></p>
 </div>
 
 <div class="space">
   <h4>Articles:</h4>
 </div>
-<% if @user.articles.any? %>
+
+<div class="offset-4 offset-md-5 space">
+  <%= will_paginate @articles, :param_name => "article_page" %>
+</div>
+
+<% if @articles.any? %>
   <% if @user == current_user %>
     <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
   <% end %>
-  <% @user.articles.each do |article| %>
+  <% @articles.each do |article| %>
     <div class="card border-success mspace col-sm-12 col-lg-8">
       <div class="card-body">
         <h5>
@@ -41,8 +47,13 @@
 <div class="space">
   <h4>Contributions:</h4>
 </div>
-<% if @user.doings.any? %>
-  <% @user.doings.each do |article| %>
+
+<div class="offset-4 offset-md-5 space">
+  <%= will_paginate @contributions, :param_name => "contribution_page" %>
+</div>
+
+<% if @contributions.any? %>
+  <% @contributions.each do |article| %>
     <div class="card border-success mspace col-sm-12 col-lg-8">
       <div class="card-body">
         <h5>

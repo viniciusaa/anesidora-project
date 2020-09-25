@@ -31,11 +31,11 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all
+    @articles = Article.all.paginate(page: params[:page], per_page: 5)
   end
 
   def show
-    @article_bodies = @article.article_bodies.paginate(page: params[:page], per_page: 1) if @article.article_bodies.any?
+    @article_bodies = @article.article_bodies.paginate(page: params[:page], per_page: 1)
   end
 
   def destroy

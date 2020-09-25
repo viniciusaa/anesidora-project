@@ -1,6 +1,6 @@
 <%= render "shared/title", title: @article.name, subtitle: "" %>
 
-<% if @article_bodies %>
+<% if @article_bodies.any? %>
   <div class="offset-4 offset-md-5 space">
     <%= will_paginate @article_bodies %>
   </div>

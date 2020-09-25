@@ -4,6 +4,10 @@
   <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
 </div>
 
+<div class="offset-4 offset-md-5 space">
+  <%= will_paginate @articles %>
+</div>
+
 <% @articles.each do |article| %>
   <div class="card border-success mspace col-sm-12 col-lg-8">
     <div class="card-body">
