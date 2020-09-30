@@ -3,13 +3,13 @@ class ArticleBodiesController < ApplicationController
   before_action :select_article_body, except: [:new, :create]
   before_action :select_article
   before_action :require_user_or_contributor
+  before_action :define_body, only: [:create, :update]
 
   def new
     @article_body = @article.article_bodies.new
   end
 
   def create
-    @article_body = @article.article_bodies.build(article_body_params)
     if @article_body.save
       flash[:notice] = "Body has been created"
       redirect_to article_path(@article)
@@ -22,7 +22,6 @@ class ArticleBodiesController < ApplicationController
   def edit; end
 
   def update
-    @article_body = @article.article_bodies.build(article_body_params)
     if @article_body.save
       flash[:notice] = "Created new article body version"
       redirect_to article_path(@article)
@@ -57,5 +56,13 @@ class ArticleBodiesController < ApplicationController
       flash[:alert] = "Only the article owner or contributor can perform this action"
       redirect_to root_path
     end
+  end
+
+  def define_body
+    @article_body = @article.article_bodies.new(article_body_params)
+    @article_body.updater = current_user.full_name
+    @article.body_count += 1
+    @article.save
+    @article_body.version = @article.body_count
   end
 end

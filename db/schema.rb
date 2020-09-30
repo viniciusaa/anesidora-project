@@ -17,6 +17,9 @@ ActiveRecord::Schema.define(version: 2020_09_24_034739) do
 
   create_table "article_bodies", force: :cascade do |t|
     t.text "body"
+    t.integer "version"
+    t.string "updater"
+    t.boolean "stable_version", default: false
     t.bigint "article_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -24,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_09_24_034739) do
   end
 
   create_table "articles", force: :cascade do |t|
+    t.integer "body_count", default: 0
     t.string "name"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
