@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   root "pages#home"
   resources :articles do
     resources :article_bodies
-    resources :contributors, :only => [:index, :update]
+    resources :contributors, :only => [:index, :update, :destroy]
   end
 end
