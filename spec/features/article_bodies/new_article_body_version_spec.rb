@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Update article", :type => :feature do
+RSpec.feature "Create new body version", :type => :feature do
   before do
     @user = create(:user)
     @article = create(:article, user_id: @user.id)
@@ -9,7 +9,7 @@ RSpec.feature "Update article", :type => :feature do
     visit "/"
     click_link "Articles"
     click_link @article.name
-    click_link "Create new version"
+    click_link "Create a new version from this one"
   end
 
   scenario "With valid input" do

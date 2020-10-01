@@ -14,7 +14,7 @@ RSpec.feature "Contributor update article", :type => :feature do
     visit "/"
     click_link "Articles"
     click_link @article.name
-    click_link "Create new version"
+    click_link "Create a new version from this one"
     fill_in "Body", with: "Test New Article version"
     click_button "Confirm"
 
@@ -26,6 +26,6 @@ RSpec.feature "Contributor update article", :type => :feature do
     visit "/"
     click_link "Articles"
     click_link @article.name
-    expect(page).to_not have_link("Create new version")
+    expect(page).to_not have_link("Create a new version from this one")
   end
 end
