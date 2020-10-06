@@ -1,21 +1,12 @@
 class ContributorsController < ApplicationController
   before_action :authenticate_user!
-  before_action :select_article_and_user, only: [:update, :destroy]
-  before_action :require_same_user, except: [:index]
+  before_action :select_article
+  before_action :select_user, except: [:index]
+  before_action :require_same_user, except: [:destroy]
+  before_action :require_same_user_or_contributor, only: [:destroy]
 
   def index
-    @article = Article.find(params[:article_id])
     @users = User.all.reject { |user| user == current_user || @article.contributors.include?(user)}
-  end
-
-  def update
-    if @article.contributors << @user
-      flash[:notice] = "Contributor added"
-      redirect_to article_path(@article)
-    else
-      flash[:alert] = "Failed to add contributor"
-      redirect_to article_path(@article)
-    end
   end
 
   def destroy
@@ -25,13 +16,35 @@ class ContributorsController < ApplicationController
     redirect_to article_path(@article)
   end
 
-  def select_article_and_user
-    @user = User.find(params[:id])
+  def add_contributor_to_article
+    if @article.contributors << @user
+      flash[:notice] = "Contributor added"
+      redirect_to article_path(@article)
+    else
+      flash[:alert] = "Failed to add contributor"
+      redirect_to article_path(@article)
+    end
+  end
+
+  private
+
+  def select_article
     @article = Article.find(params[:article_id])
+  end
+
+  def select_user
+    @user = User.find(params[:id])
   end
 
   def require_same_user
     if @article.user != current_user
+      flash[:alert] = "Only the article owner can perform this action"
+      redirect_to root_path
+    end
+  end
+
+  def require_same_user_or_contributor
+    unless @article.user == current_user || @user == current_user
       flash[:alert] = "Only the article owner can perform this action"
       redirect_to root_path
     end

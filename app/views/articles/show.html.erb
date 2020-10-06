@@ -9,17 +9,6 @@
       Article creator: <%= link_to @article.user.full_name, user_path(@article.user), class: "text-dark" %>
       <br />
       </b></p>
-    <% if @stable_body_version.stable_version %>
-      <p class="small success" style="margin:0;"><b>
-        Stable body version
-        <br />
-      </b></p>
-    <% else %>
-      <p class="small danger" style="margin:0;"><b>
-        Latest body version (no stable version yet)
-        <br />
-      </b></p>
-    <% end %>
     <p class="small"><b>
       Body version: <%= @stable_body_version.version %>
       <br />
@@ -27,6 +16,16 @@
       <br />
       Version created on <%= @stable_body_version.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
     </b></p>
+    <% if @stable_body_version.stable_version %>
+      <p class="small success" style="margin:0;"><b>
+        Stable body version
+      </b></p>
+    <% else %>
+      <p class="small danger" style="margin:0;"><b>
+        Latest body version (no stable version yet)
+      </b></p>
+      <%= link_to "Make version stable", [:make_stable, @article, @stable_body_version], class: "btn btn-sm btn-success" %>
+    <% end %>
   </div>
 
   <% if @article.user == current_user %>
@@ -116,7 +115,7 @@
       <% @article.contributors.each do |contributor| %>
         <div class="sspace card border-dark col-12 col-sm-10 col-md-8 col-lg-6">
           <p style="margin:0;"><u><%= link_to contributor.full_name, user_path(contributor), class: "text-dark" %></u>
-          <% if @article.user == current_user %>
+          <% if @article.user == current_user || contributor == current_user %>
             &nbsp; - &nbsp;
             <%= link_to "Remove", article_contributor_path(@article, contributor),
                                   method: :delete,

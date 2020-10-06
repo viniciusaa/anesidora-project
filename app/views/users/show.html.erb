@@ -59,8 +59,14 @@
         <h5>
           <u><%= link_to article.name, article_path(article), class: "text-dark" %></u>
         </h5>
-        <p style="margin:0;">Author: <u><%= article.user.full_name %></u></p>
+        <p style="margin:0;">Author: <u><%= link_to article.user.full_name, user_path(article.user), class: "text-dark" %></u></p>
         <p style="margin:0;">Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u></p>
+        <% if article.user == current_user || @user == current_user %>
+          <u><%= link_to "Remove", article_contributor_path(article, @user),
+                                   method: :delete,
+                                   data: {confirm: "Are you sure?"},
+                                   class: "btn btn-danger btn-sm sspace-top" %></u>
+        <% end %>
       </div>
     </div>
   <% end %>
