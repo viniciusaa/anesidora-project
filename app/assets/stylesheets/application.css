@@ -140,6 +140,10 @@
   color: red;
 }
 
+.success {
+  color: green;
+}
+
 /* Devise error messages */
 #error_explanation {
   background-color: #f2dede;

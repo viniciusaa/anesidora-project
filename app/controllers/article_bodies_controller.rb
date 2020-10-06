@@ -2,8 +2,11 @@ class ArticleBodiesController < ApplicationController
   before_action :authenticate_user!
   before_action :select_article_body, except: [:new, :create]
   before_action :select_article
-  before_action :require_user_or_contributor
+  before_action :require_user_or_contributor, except: [:show, :make_stable]
+  before_action :require_user, only: [:make_stable]
   before_action :define_body, only: [:create, :update]
+
+  def show; end
 
   def new
     @article_body = @article.article_bodies.new
@@ -37,6 +40,20 @@ class ArticleBodiesController < ApplicationController
     redirect_to article_path(@article)
   end
 
+  def make_stable
+    @article.article_bodies.each do |body|
+      if body.stable_version == true
+        body.stable_version = false
+        body.save
+      end
+    end
+    @article_body.stable_version = true
+    if @article_body.save
+      flash[:notice] = "Version #{@article_body.version} is now the stable"
+      redirect_to article_path(@article)
+    end
+  end
+
   private
 
   def article_body_params
@@ -54,6 +71,13 @@ class ArticleBodiesController < ApplicationController
   def require_user_or_contributor
     unless @article.user == current_user || @article.contributors.include?(current_user)
       flash[:alert] = "Only the article owner or contributor can perform this action"
+      redirect_to root_path
+    end
+  end
+
+  def require_user
+    unless @article.user == current_user
+      flash[:alert] = "Only the article owner can perform this action"
       redirect_to root_path
     end
   end

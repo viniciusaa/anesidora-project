@@ -1,0 +1,45 @@
+<div class="mspace">
+  <p class="space"><%= @article_body.body %></p>
+  <% if @article_body.stable_version %>
+    <p class="small success" style="margin:0;"><b>
+      Stable body version
+      <br />
+    </b></p>
+  <% end %>
+  <p class="small"><b>
+    Body version: <%= @article_body.version %>
+    <br />
+    Version writer: <%= @article_body.updater %>
+    <br />
+    Version created on <%= @article_body.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
+  </b></p>
+</div>
+
+<% if @article.user == current_user || @article.contributors.include?(current_user) %>
+  <div class="sspace">
+    <h5>Options:</h5>
+  </div>
+<% end %>
+<% if @article.user == current_user %>
+  <div class="sspace">
+    <% unless @article_body.stable_version %>
+      <%= link_to 'Make version stable', [:make_stable, @article, @article_body], class: "btn btn-success" %>
+    <% end %>
+  </div>
+<% end %>
+<div class="space">
+  <% if @article.user == current_user || @article.contributors.include?(current_user) %>
+    <%= link_to "Create a new version from this one", edit_article_article_body_path(@article, @article_body),
+                                      class: "btn btn-success" %>
+  <% end %>
+  <% if @article.user == current_user %>
+    <u><%= link_to "Delete version", article_article_body_path(@article, @article_body),
+                                     method: :delete,
+                                     data: {confirm: "Are you sure?"},
+                                     class: "btn btn-danger" %></u>
+  <% end %>
+</div>
+
+<div>
+  <p><%= link_to "Back", article_path(@article), class: "btn btn-success" %></p>
+</div>

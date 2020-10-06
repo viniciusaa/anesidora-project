@@ -35,7 +35,14 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article_bodies = @article.article_bodies.paginate(page: params[:page], per_page: 1)
+    @article_bodies = @article.article_bodies.paginate(page: params[:page], per_page: 5)
+    stable = @article.article_bodies.where(stable_version: true).first
+    if stable
+      @stable_body_version = stable
+    else
+      @stable_body_version = @article.article_bodies.first
+    end
+
   end
 
   def destroy
