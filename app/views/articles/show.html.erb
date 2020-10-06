@@ -3,21 +3,20 @@
 <% if @article_bodies.any? %>
   <div class="mspace">
     <p class="space"><%= @stable_body_version.body %></p>
-    <p class="small" style="margin:0;"><b>
+    <p class="small sspace"><b>
       Article created on <%= @article.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
       <br />
       Article creator: <%= link_to @article.user.full_name, user_path(@article.user), class: "text-dark" %>
       <br />
-      </b></p>
-    <p class="small"><b>
       Body version: <%= @stable_body_version.version %>
       <br />
       Version writer: <%= @stable_body_version.updater %>
       <br />
       Version created on <%= @stable_body_version.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
     </b></p>
+
     <% if @stable_body_version.stable_version %>
-      <p class="small success" style="margin:0;"><b>
+      <p class="small success"><b>
         Stable body version
       </b></p>
     <% else %>

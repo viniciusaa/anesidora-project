@@ -13,21 +13,6 @@
       <li class="nav-item">
         <big><b><%= link_to "Home", root_path, class:"nav-link space-right" %></b></big>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#"
-                                            id="navbarDropdown"
-                                            role="button"
-                                            data-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false">
-          <big><b>Actions</b></big>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "xxx", "#", class:"dropdown-item" %>
-          <%= link_to "xxx", "#", class:"dropdown-item" %>
-          <%= link_to "xxx", "#", class:"dropdown-item" %>
-        </div>
-      </li>
       <% if user_signed_in? %>
         <li class="nav-item">
           <big><b><%= link_to "Articles", articles_path, class:"nav-link" %></b></big>
