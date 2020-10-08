@@ -1,0 +1,26 @@
+<% if @article.user == current_user || @article.contributors.include?(current_user) %>
+  <% if @article_bodies.any? %>
+    <div class="sspace">
+      <h5>Article body options:</h5>
+    </div>
+    <div class="space">
+      <%= link_to "Create a new version from this one", edit_article_article_body_path(@article, @stable_body_version),
+                                                        class: "btn btn-sm btn-success" %>
+
+      <% if @article.user == current_user %>
+        <u><%= link_to "Delete version", article_article_body_path(@article, @stable_body_version),
+                                         method: :delete,
+                                         data: {confirm: "Are you sure?"},
+                                         class: "btn btn-sm btn-danger" %></u>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="sspace">
+      <h5>Article body options:</h5>
+    </div>
+    <div class="space">
+      <%= link_to "Create article body", new_article_article_body_path(@article),
+                                         class: "btn btn-sm btn-success" %>
+    </div>
+  <% end %>
+<% end %>

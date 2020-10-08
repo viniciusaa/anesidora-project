@@ -1,87 +1,10 @@
 <%= render "shared/title", title: @article.name, subtitle: "" %>
 
-<% if @article_bodies.any? %>
-  <div class="mspace">
-    <p class="space"><%= @stable_body_version.body %></p>
-    <p class="small sspace"><b>
-      Article created on <%= @article.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
-      <br />
-      Article creator: <%= link_to @article.user.full_name, user_path(@article.user), class: "text-dark" %>
-      <br />
-      Body version: <%= @stable_body_version.version %>
-      <br />
-      Version writer: <%= @stable_body_version.updater %>
-      <br />
-      Version created on <%= @stable_body_version.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
-    </b></p>
+<%= render "article_body_text" %>
 
-    <% if @stable_body_version.stable_version %>
-      <p class="small success"><b>
-        Stable body version
-      </b></p>
-    <% else %>
-      <p class="small danger" style="margin:0;"><b>
-        Latest body version (no stable version yet)
-      </b></p>
-      <%= link_to "Make version stable", [:make_stable, @article, @stable_body_version], class: "btn btn-sm btn-success" %>
-    <% end %>
-  </div>
+<%= render "article_options" %>
 
-  <% if @article.user == current_user %>
-    <div class="sspace">
-      <h5>Article options:</h5>
-    </div>
-    <div class="space">
-      <%= link_to "Edit article", edit_article_path(@article), class: "btn btn-success" %>
-      <u><%= link_to "Delete article", article_path(@article),
-                                       method: :delete,
-                                       data: {confirm: "Are you sure?"},
-                                       class: "btn btn-danger" %></u>
-    </div>
-  <% end %>
-
-  <div class="sspace">
-    <h5>Article body options:</h5>
-  </div>
-  <div class="space">
-    <% if @article.user == current_user || @article.contributors.include?(current_user) %>
-      <%= link_to "Create a new version from this one", edit_article_article_body_path(@article, @stable_body_version),
-                                        class: "btn btn-success" %>
-    <% end %>
-    <% if @article.user == current_user %>
-      <u><%= link_to "Delete version", article_article_body_path(@article, @stable_body_version),
-                                       method: :delete,
-                                       data: {confirm: "Are you sure?"},
-                                       class: "btn btn-danger" %></u>
-    <% end %>
-  </div>
-
-
-<% else %>
-  <p class="mspace danger"><b>Body hasn't been created</b></p>
-  <% if @article.user == current_user %>
-    <div class="sspace">
-      <h5>Article options:</h5>
-    </div>
-    <div class="space">
-      <%= link_to "Edit article", edit_article_path(@article), class: "btn btn-success" %>
-      <u><%= link_to "Delete article", article_path(@article),
-                                       method: :delete,
-                                       data: {confirm: "Are you sure?"},
-                                       class: "btn btn-danger" %></u>
-    </div>
-  <% end %>
-
-  <% if @article.user == current_user || @article.contributors.include?(current_user) %>
-    <div class="sspace">
-      <h5>Article body options:</h5>
-    </div>
-    <div class="space">
-      <%= link_to "Create article body", new_article_article_body_path(@article),
-                                         class: "btn btn-success" %>
-    </div>
-  <% end %>
-<% end %>
+<%= render "article_body_options" %>
 
 <% if @article_bodies.count > 1 %>
   <div class="space">
@@ -103,32 +26,7 @@
   </div>
 <% end %>
 
-<div class="xspace">
-  <h5>Contributors:</h5>
-  <% if @article.user == current_user %>
-    <div class="sspace">
-      <%= link_to "Add contributors", article_contributors_path(@article), class: "btn btn-success" %>
-    </div>
-  <% end %>
-  <% if @article.contributors.any? %>
-      <% @article.contributors.each do |contributor| %>
-        <div class="sspace card border-dark col-12 col-sm-10 col-md-8 col-lg-6">
-          <p style="margin:0;"><u><%= link_to contributor.full_name, user_path(contributor), class: "text-dark" %></u>
-          <% if @article.user == current_user || contributor == current_user %>
-            &nbsp; - &nbsp;
-            <%= link_to "Remove", article_contributor_path(@article, contributor),
-                                  method: :delete,
-                                  data: {confirm: "Are you sure?"},
-                                  class: "danger" %>
-          <% end %>
-          </p>
-        </div>
-      <% end %>
-
-  <% else %>
-    <p class="danger"><b>No contributors yet</b></p>
-  <% end %>
-</div>
+<%= render "contributors" %>
 
 <div>
   <p><%= link_to "Return to articles index", articles_path, class: "btn btn-success" %></p>

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   root "pages#home"
 
   resources :articles do
+    get 'change_privacy', on: :member
+
     resources :contributors, :only => [:index, :destroy] do
       get 'add_contributor_to_article', on: :member
     end

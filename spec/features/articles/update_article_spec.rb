@@ -8,7 +8,7 @@ RSpec.feature "Update article", :type => :feature do
     visit "/"
     click_link "Articles"
     click_link @article.name
-    click_link "Edit article"
+    click_link "Edit title"
   end
 
   scenario "With valid name" do

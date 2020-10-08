@@ -3,8 +3,14 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @articles = @user.articles.paginate(page: params[:article_page], per_page: 3)
-    @contributions = @user.doings.paginate(page: params[:contribution_page], per_page: 3)
+    @articles = @user.articles.reject { |article|
+      article.private == true unless
+      @user == current_user || article.contributors.include?(current_user)
+    }
+    @contributions = @user.doings.reject { |article|
+      article.private == true unless
+      @user == current_user || article.contributors.include?(current_user)
+    }
   end
 
   def index

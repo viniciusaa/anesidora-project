@@ -8,6 +8,8 @@
       <br />
     <% end %>
     <b>
+      Source article: <%= @article.name %>
+      <br />
       Body version: <%= @article_body.version %>
       <br />
       Version writer: <%= @article_body.updater %>
@@ -25,20 +27,20 @@
 <% if @article.user == current_user %>
   <div class="sspace">
     <% unless @article_body.stable_version %>
-      <%= link_to 'Make version stable', [:make_stable, @article, @article_body], class: "btn btn-success" %>
+      <%= link_to 'Make version stable', [:make_stable, @article, @article_body], class: "btn btn-sm btn-success" %>
     <% end %>
   </div>
 <% end %>
 <div class="space">
   <% if @article.user == current_user || @article.contributors.include?(current_user) %>
     <%= link_to "Create a new version from this one", edit_article_article_body_path(@article, @article_body),
-                                      class: "btn btn-success" %>
+                                      class: "btn btn-sm btn-success" %>
   <% end %>
   <% if @article.user == current_user %>
     <u><%= link_to "Delete version", article_article_body_path(@article, @article_body),
                                      method: :delete,
                                      data: {confirm: "Are you sure?"},
-                                     class: "btn btn-danger" %></u>
+                                     class: "btn btn-sm btn-danger" %></u>
   <% end %>
 </div>
 

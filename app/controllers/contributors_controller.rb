@@ -13,7 +13,7 @@ class ContributorsController < ApplicationController
     contribution = Contribution.where(user_id: @user.id, article_id: @article.id).first
     contribution.destroy
     flash[:notice] = "#{@user.first_name} is no longer a contributor"
-    redirect_to article_path(@article)
+    redirect_to articles_path
   end
 
   def add_contributor_to_article

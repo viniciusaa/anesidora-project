@@ -1,0 +1,26 @@
+<div class="mspace">
+  <h5>Contributors:</h5>
+  <% if @article.user == current_user %>
+    <div class="sspace">
+      <%= link_to "Add contributors", article_contributors_path(@article), class: "btn btn-sm btn-success" %>
+    </div>
+  <% end %>
+  <% if @article.contributors.any? %>
+      <% @article.contributors.each do |contributor| %>
+        <div class="sspace card border-dark col-12 col-sm-10 col-md-8 col-lg-6">
+          <p style="margin:0;"><u><%= link_to contributor.full_name, user_path(contributor), class: "text-dark" %></u>
+          <% if @article.user == current_user || contributor == current_user %>
+            &nbsp; - &nbsp;
+            <%= link_to "Remove", article_contributor_path(@article, contributor),
+                                  method: :delete,
+                                  data: {confirm: "Are you sure?"},
+                                  class: "danger" %>
+          <% end %>
+          </p>
+        </div>
+      <% end %>
+
+  <% else %>
+    <p class="danger"><b>No contributors yet</b></p>
+  <% end %>
+</div>
