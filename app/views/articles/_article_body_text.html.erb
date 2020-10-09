@@ -12,7 +12,7 @@
       <br />
       Version created on: <%= @stable_body_version.created_at.strftime("%d/%m/%Y at %I:%M%p") %>
       <br />
-      <% if @article.user == current_user || @article.contributors.include?(current_user) %>
+      <% if @article.user == current_user || @contributors.include?(current_user) %>
         Visibility:
         <% if @article.private == false %>
           <span class="success">Public</span>
@@ -42,7 +42,7 @@
     <br />
     Article creator: <%= link_to @article.user.full_name, user_path(@article.user), class: "text-dark" %>
     <br />
-    <% if @article.user == current_user || @article.contributors.include?(current_user) %>
+    <% if @article.user == current_user || @contributors.include?(current_user) %>
       Visibility:
       <% if @article.private == false %>
         <span class="success">Public</span>

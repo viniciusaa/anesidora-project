@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  require "will_paginate/array"
   before_action :authenticate_user!
   before_action :select_article, except: [:new, :create, :index]
   before_action :require_same_user, only: [:edit, :update, :destroy, :change_privacy]
@@ -34,7 +35,7 @@ class ArticlesController < ApplicationController
     @articles = Article.all.reject { |article|
       article.private == true unless
       article.user == current_user || article.contributors.include?(current_user)
-    }
+    }.paginate(page: params[:page], per_page: 5)
   end
 
   def show
@@ -44,6 +45,8 @@ class ArticlesController < ApplicationController
         redirect_to root_path
       end
     end
+
+    @contributors = @article.contributors.paginate(page: params[:page], per_page: 5)
 
     @article_bodies = @article.article_bodies.paginate(page: params[:page], per_page: 5)
     stable = @article.article_bodies.where(stable_version: true).first

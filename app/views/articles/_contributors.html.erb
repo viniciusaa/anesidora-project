@@ -5,8 +5,11 @@
       <%= link_to "Add contributors", article_contributors_path(@article), class: "btn btn-sm btn-success" %>
     </div>
   <% end %>
-  <% if @article.contributors.any? %>
-      <% @article.contributors.each do |contributor| %>
+  <% if @contributors.any? %>
+    <div>
+      <%= will_paginate @contributors %>
+    </div>
+      <% @contributors.each do |contributor| %>
         <div class="sspace card border-dark col-12 col-sm-10 col-md-8 col-lg-6">
           <p style="margin:0;"><u><%= link_to contributor.full_name, user_path(contributor), class: "text-dark" %></u>
           <% if @article.user == current_user || contributor == current_user %>

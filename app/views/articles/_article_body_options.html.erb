@@ -1,4 +1,4 @@
-<% if @article.user == current_user || @article.contributors.include?(current_user) %>
+<% if @article.user == current_user || @contributors.include?(current_user) %>
   <% if @article_bodies.any? %>
     <div class="sspace">
       <h5>Article body options:</h5>

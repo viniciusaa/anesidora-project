@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  require "will_paginate/array"
   before_action :authenticate_user!
 
   def show
@@ -6,11 +7,12 @@ class UsersController < ApplicationController
     @articles = @user.articles.reject { |article|
       article.private == true unless
       @user == current_user || article.contributors.include?(current_user)
-    }
+    }.paginate(page: params[:articles_page], per_page: 2)
+
     @contributions = @user.doings.reject { |article|
       article.private == true unless
       @user == current_user || article.contributors.include?(current_user)
-    }
+    }.paginate(page: params[:contributions_page], per_page: 2)
   end
 
   def index

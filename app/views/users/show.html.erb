@@ -16,6 +16,10 @@
   <h4>Articles:</h4>
 </div>
 
+<div class="offset-5">
+  <%= will_paginate @articles, :param_name => "articles_page" %>
+</div>
+
 <% if @articles.any? %>
   <% if @user == current_user %>
     <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
@@ -47,6 +51,10 @@
 
 <div class="space">
   <h4>Contributions:</h4>
+</div>
+
+<div class="offset-5">
+  <%= will_paginate @contributions, :param_name => "contributions_page" %>
 </div>
 
 <% if @contributions.any? %>

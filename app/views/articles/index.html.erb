@@ -4,27 +4,29 @@
   <%= link_to "New Article", new_article_path, class: "btn btn-success mspace" %>
 </div>
 
+<div class="offset-5">
+  <%= will_paginate @articles %>
+</div>
+
 <% @articles.each do |article| %>
-
-      <div class="card border-success space col-sm-12 col-lg-8">
-        <div class="card-body">
-          <h5>
-            <u><%= link_to article.name, article_path(article), class: "text-dark" %></u>
-          </h5>
-          <p style="margin:0;">
-            Author: <u><%= article.user.full_name %></u>
-            <br />
-            Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u>
-          </p>
-          <% if article.user == current_user %>
-            <%= link_to "Delete article", article_path(article),
-                                          method: :delete,
-                                          data: {confirm: "Are you sure?"},
-                                          class: "btn btn-danger btn-sm sspace-top" %>
-          <% end %>
-        </div>
-      </div>
-
+  <div class="card border-success space col-sm-12 col-lg-8">
+    <div class="card-body">
+      <h5>
+        <u><%= link_to article.name, article_path(article), class: "text-dark" %></u>
+      </h5>
+      <p style="margin:0;">
+        Author: <u><%= article.user.full_name %></u>
+        <br />
+        Date: <u><%= article.created_at.strftime("%d/%m/%Y") %></u>
+      </p>
+      <% if article.user == current_user %>
+        <%= link_to "Delete article", article_path(article),
+                                      method: :delete,
+                                      data: {confirm: "Are you sure?"},
+                                      class: "btn btn-danger btn-sm sspace-top" %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
 
 <div>
