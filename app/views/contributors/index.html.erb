@@ -1,6 +1,9 @@
 <%= render "shared/title", title: "Add contributor", subtitle: "" %>
 
 <% if @users.any? %>
+  <div class="offset-5">
+    <%= will_paginate @users %>
+  </div>
   <% @users.each do |user| %>
     <div class="card border-success space col-sm-12 col-lg-8">
       <div class="card-body">

@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :contributions, dependent: :destroy
   has_many :doings, through: :contributions, class_name: "Article"
 
+  default_scope -> { order(created_at: :desc) }
+
   def full_name
     "#{first_name} #{last_name}"
   end

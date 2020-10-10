@@ -19,10 +19,10 @@ RSpec.feature "Add contributors to article", :type => :feature do
     first(:link, "Add").click
 
     expect(current_path).to eq(article_path(@article))
-    expect(page).to have_content(@second_user.full_name)
+    expect(page).to have_content(@third_user.full_name)
     click_link "Add contributor"
 
-    expect(page).to have_content(@third_user.full_name)
+    expect(page).to have_content(@second_user.full_name)
     click_link "Add"
 
     expect(current_path).to eq(article_path(@article))

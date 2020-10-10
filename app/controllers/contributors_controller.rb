@@ -1,4 +1,5 @@
 class ContributorsController < ApplicationController
+  require "will_paginate/array"
   before_action :authenticate_user!
   before_action :select_article
   before_action :select_user, except: [:index]
@@ -6,7 +7,9 @@ class ContributorsController < ApplicationController
   before_action :require_same_user_or_contributor, only: [:destroy]
 
   def index
-    @users = User.all.reject { |user| user == current_user || @article.contributors.include?(user)}
+    @users = User.all.reject {
+      |user| user == current_user || @article.contributors.include?(user)
+    }.paginate(page: params[:page], per_page: 5)
   end
 
   def destroy

@@ -13,6 +13,8 @@
       <p class="card-text">
         Number of articles: <%= user.articles.count %>
         <br />
+        Number of contributions: <%= user.doings.count %>
+        <br />
         Signed in: <%= user.created_at.strftime("%d/%m/%Y") %>
       </p>
     </div>

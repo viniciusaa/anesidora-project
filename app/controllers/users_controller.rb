@@ -7,12 +7,12 @@ class UsersController < ApplicationController
     @articles = @user.articles.reject { |article|
       article.private == true unless
       @user == current_user || article.contributors.include?(current_user)
-    }.paginate(page: params[:articles_page], per_page: 2)
+    }.paginate(page: params[:articles_page], per_page: 5)
 
     @contributions = @user.doings.reject { |article|
       article.private == true unless
       @user == current_user || article.contributors.include?(current_user)
-    }.paginate(page: params[:contributions_page], per_page: 2)
+    }.paginate(page: params[:contributions_page], per_page: 5)
   end
 
   def index
