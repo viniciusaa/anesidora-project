@@ -1,6 +1,55 @@
 <%= render "shared/title", title: "Create New Article", subtitle: "" %>
 
-<%= render "form" %>
+<%= render "shared/errors", obj: @article %>
+<!-- Form -->
+<div class="xspace">
+  <%= form_for @article do |f| %>
+    <div class="space space-top">
+      <div class="row col-12">
+        <b><%= f.label :name %></b>
+      </div>
+      <div class="row col-md-8 col-lg-6">
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="space">
+      <div class="col-12 row">
+        <div class="privaci-icon">
+          <%= f.radio_button :private, false, :checked => true %>
+          <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-book-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8.5 2.687v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+          </svg>
+        </div>
+
+        <div>
+          <p><b><%= label :private_true, "Public" %></b></p>
+          <p class="small privaci-description">All user will be able to see it</p>
+        </div>
+      </div>
+
+      <div class="col-12 row">
+        <div class="privaci-icon">
+          <%= f.radio_button :private, true %>
+
+          <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-lock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>
+            <path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+          </svg>
+        </div>
+
+        <div>
+          <p><b><%= label :private_false, "Private" %></b></p>
+          <p class="small privaci-description">Visibility is restricted to you and contributors</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row col-12">
+      <%= f.submit "Confirm", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>
 
 <div>
   <%= link_to "Return", articles_path, class: "btn btn-success" %>

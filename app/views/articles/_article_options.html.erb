@@ -8,7 +8,7 @@
       <%= link_to "Change visibility", [:change_privacy, @article], data: {confirm: "Are you sure?"},
                                                                class: "btn btn-sm btn-success" %>
     <% else %>
-      <%= link_to "Make public", [:change_privacy, @article], data: {confirm: "Are you sure?"},
+      <%= link_to "Change visibility", [:change_privacy, @article], data: {confirm: "Are you sure?"},
                                                               class: "btn btn-sm btn-success" %>
     <% end %>
     <%= link_to "Delete article", article_path(@article),

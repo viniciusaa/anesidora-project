@@ -144,6 +144,14 @@
   color: green;
 }
 
+.privaci-icon {
+  margin-right: 7px;
+}
+
+.privaci-description {
+  margin-top: -30px;
+}
+
 /* Devise error messages */
 #error_explanation {
   background-color: #f2dede;

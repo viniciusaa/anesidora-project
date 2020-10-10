@@ -83,7 +83,7 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:name, :user_id)
+    params.require(:article).permit(:name, :user_id, :private)
   end
 
   def select_article
