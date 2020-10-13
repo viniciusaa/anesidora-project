@@ -1,0 +1,17 @@
+<div class="space">
+<%= form_for([@article, @comment]) do |f| %>
+    <div class="sspace">
+      <div class="row col-12">
+        <b><%= f.label :body, "Comment:" %></b>
+      </div>
+
+      <div class="row col-md-8 col-lg-6">
+        <%= f.text_area :body, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row col-12 mspace">
+      <%= f.submit "Post", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>

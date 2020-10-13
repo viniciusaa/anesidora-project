@@ -99,6 +99,20 @@
   border-color: #ab2929 !important;
 }
 
+/* Comment Button customization */
+
+.btn-warning, .btn-warning:visited {
+  background-color: #212629 !important;
+  color: #ffa53d !important;
+  border-color: #ffa53d !important;
+}
+
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+  background-color: #212629 !important;
+  color: #b36b19 !important;
+  border-color: #b36b19 !important;
+}
+
 /* Different margin sizes */
 .sspace {
   margin-bottom: 1%;
@@ -142,6 +156,14 @@
 
 .success {
   color: green;
+}
+
+.writer-comment {
+  color: #2113e8;
+}
+
+.contributor-comment {
+  color: #bd6e00;
 }
 
 .privaci-icon {

@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :contributions, dependent: :destroy
   has_many :doings, through: :contributions, class_name: "Article"
+  has_many :comments, dependent: :destroy
+  has_many :sub_comments, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
 

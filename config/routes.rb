@@ -14,5 +14,7 @@ Rails.application.routes.draw do
     resources :article_bodies, :except => [:index] do
       get 'make_stable', on: :member
     end
+
+    resources :comments, :only => [:index, :create, :destroy]
   end
 end

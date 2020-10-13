@@ -1,0 +1,9 @@
+<%= render "shared/title", title: "Article discussion", subtitle: @article.name %>
+
+<%= render "comments" %>
+
+<%= render "form" %>
+
+<div>
+  <p><%= link_to "Return", article_path(@article), class: "btn btn-success" %></p>
+</div>

@@ -1,0 +1,29 @@
+<div class="mspace">
+  <% @comments.each do |comment| %>
+    <div class="card border-success space col-sm-12 col-lg-8">
+      <div class="card-body">
+        <p class="card-title">
+          <b><%= link_to comment.user.full_name, user_path(comment.user), class: "text-dark" %></b>
+          -
+          <%= time_ago_in_words(comment.created_at) %> ago
+          <% if comment.user == @article.user %>
+            <br />
+            <b class="writer-comment">Article Writer</b>
+          <% elsif @article.contributors.include?(comment.user)%>
+            <br />
+            <b class="contributor-comment">Article contributor</b>
+          <% end %>
+        </p>
+        <p class="card-text" style="margin:0;">
+          <%= comment.body %>
+        </p>
+        <% if comment.user == current_user %>
+          <%= link_to "Delete", article_comment_path(@article, comment),
+                                method: :delete,
+                                data: {confirm: "Are you sure?"},
+                                class: "btn btn-danger btn-sm sspace-top" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

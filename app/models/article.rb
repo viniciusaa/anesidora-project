@@ -8,4 +8,6 @@ class Article < ApplicationRecord
   has_many :article_bodies, dependent: :destroy
   has_many :contributions, dependent: :destroy
   has_many :contributors, through: :contributions, class_name: "User"
+  has_many :comments, dependent: :destroy
+  has_many :sub_comments, dependent: :destroy
 end
