@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       get 'make_stable', on: :member
     end
 
-    resources :comments, :only => [:index, :create, :destroy]
+    resources :comments, :only => [:index, :create, :destroy] do
+      resources :sub_comments, :only => [:new, :create, :destroy]
+    end
   end
 end
