@@ -15,9 +15,8 @@ RSpec.feature "Delete comment", :type => :feature do
     click_link "Article discussion"
 
     expect(page).to have_content(@comment.body)
-    click_button "delete"
+    click_link "Delete"
 
-    expect(page).to have_content("Comment deleted")
-    expect(page).to_not have_content(@comment.body)
+    expect(page).to have_content("Comment was successfully deleted")
   end
 end
