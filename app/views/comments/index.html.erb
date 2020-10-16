@@ -1,4 +1,4 @@
-<%= render "shared/title", title: "Article discussion", subtitle: @article.name %>
+<%= render "shared/title", title: "Article discussion", subtitle: "\"#{@article.name}\" by #{@article.user.full_name}" %>
 
 <%= render "comments" %>
 

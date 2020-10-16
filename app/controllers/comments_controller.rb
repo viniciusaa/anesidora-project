@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :private_article
 
   def index
-    @comments = @article.comments.all
+    @comments = @article.comments.paginate(page: params[:page], per_page: 7)
     @comment = current_user.comments.new
   end
 
