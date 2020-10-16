@@ -23,9 +23,14 @@ class SubCommentsController < ApplicationController
 
   def destroy
     @subcomment = SubComment.find(params[:id])
-    @subcomment.destroy
-    flash[:notice] = "Comment was successfully deleted"
-    redirect_to article_comments_path(@article)
+    unless @subcomment.user == current_user || @article.user == current_user
+      flash[:alert] = "Only the article owner can perform this action"
+      redirect_to root_path
+    else
+      @subcomment.destroy
+      flash[:notice] = "Comment was successfully deleted"
+      redirect_to article_comments_path(@article)
+    end
   end
 
   private

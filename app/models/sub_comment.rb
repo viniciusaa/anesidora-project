@@ -1,5 +1,5 @@
 class SubComment < ApplicationRecord
-  validates :body, presence: true, length: { minimum: 4, maximum: 500 }
+  validates :body, presence: true, length: { minimum: 2, maximum: 500 }
 
   belongs_to :article
   belongs_to :user
