@@ -6,7 +6,7 @@ RSpec.feature "Delete sub-comment", :type => :feature do
     @second_user = create(:user)
     @article = create(:article, user_id: @user.id)
     @comment = create(:comment, article_id: @article.id, user_id: @user.id)
-    @sub_comment = create(:sub_comment, comment_id: @comment.id, user_id: @second_user.id)
+    @sub_comment = create(:sub_comment, article_id: @article.id, comment_id: @comment.id, user_id: @second_user.id)
     login_as(@second_user)
   end
 
@@ -18,9 +18,9 @@ RSpec.feature "Delete sub-comment", :type => :feature do
 
     expect(page).to have_content(@comment.body)
     expect(page).to have_content(@sub_comment.body)
-    click_button "delete"
+    click_link "Delete"
 
-    expect(page).to have_content("Comment deleted")
+    expect(page).to have_content("Comment was successfully deleted")
     expect(page).to_not have_content(@sub_comment.body)
   end
 end

@@ -17,7 +17,7 @@ class SubCommentsController < ApplicationController
       redirect_to article_comments_path(@article)
     else
       flash[:alert] = "Failed to publish comment"
-      redirect_to article_path(@article)
+      redirect_to article_comments_path(@article)
     end
   end
 

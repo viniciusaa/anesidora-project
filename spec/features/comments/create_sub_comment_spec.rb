@@ -15,10 +15,10 @@ RSpec.feature "Create sub-comment", :type => :feature do
     click_link "Article discussion"
 
     expect(page).to have_content(@comment.body)
-    click_button "Reply"
+    click_link "Reply"
 
-    expect(current_path).to eq(article_comment_path(@article, @comment))
-    fill_in "Comment", with: "Testing sub-comment"
+    expect(current_path).to eq(new_article_comment_sub_comment_path(@article, @comment))
+    fill_in "Reply", with: "Testing sub-comment"
     click_button "Post"
 
     expect(current_path).to eq(article_comments_path(@article))
@@ -33,10 +33,10 @@ RSpec.feature "Create sub-comment", :type => :feature do
     click_link "Article discussion"
 
     expect(page).to have_content(@comment.body)
-    click_button "Reply"
+    click_link "Reply"
 
-    expect(current_path).to eq(article_comment_path(@article, @comment))
-    fill_in "Comment", with: ""
+    expect(current_path).to eq(new_article_comment_sub_comment_path(@article, @comment))
+    fill_in "Reply", with: ""
     click_button "Post"
 
     expect(current_path).to eq(article_comments_path(@article))
