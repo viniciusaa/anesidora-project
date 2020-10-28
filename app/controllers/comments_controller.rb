@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :select_article
+  before_action :set_article
   before_action :private_article
 
   def index
@@ -38,16 +38,14 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body)
   end
 
-  def select_article
+  def set_article
     @article = Article.find(params[:article_id])
   end
 
   def private_article
-    if @article.private == true
-      unless @article.user == current_user || @article.contributors.include?(current_user)
-        flash[:alert] = "Only the article owner or contributor can perform this action"
-        redirect_to root_path
-      end
+    if @article.private && (@article.user != current_user && @article.contributors.exclude?(current_user))
+      flash[:alert] = "Only the article owner or contributor can perform this action"
+      redirect_to root_path
     end
   end
 end

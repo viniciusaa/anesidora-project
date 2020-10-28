@@ -1,7 +1,7 @@
 class SubCommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :select_article
-  before_action :select_comment, except: [:destroy]
+  before_action :set_article
+  before_action :set_comment, except: [:destroy]
   before_action :private_article
 
   def new
@@ -23,7 +23,7 @@ class SubCommentsController < ApplicationController
 
   def destroy
     @subcomment = SubComment.find(params[:id])
-    unless @subcomment.user == current_user || @article.user == current_user
+    if @subcomment.user != current_user && @article.user != current_user
       flash[:alert] = "Only the article owner can perform this action"
       redirect_to root_path
     else
@@ -39,20 +39,18 @@ class SubCommentsController < ApplicationController
     params.require(:sub_comment).permit(:body)
   end
 
-  def select_comment
+  def set_comment
     @comment = Comment.find(params[:comment_id])
   end
 
-  def select_article
+  def set_article
     @article = Article.find(params[:article_id])
   end
 
   def private_article
-    if @article.private == true
-      unless @article.user == current_user || @article.contributors.include?(current_user)
-        flash[:alert] = "Only the article owner or contributor can perform this action"
-        redirect_to root_path
-      end
+    if @article.private && (@article.user != current_user && @article.contributors.exclude?(current_user))
+      flash[:alert] = "Only the article owner or contributor can perform this action"
+      redirect_to root_path
     end
   end
 end

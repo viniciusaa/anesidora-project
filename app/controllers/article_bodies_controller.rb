@@ -1,7 +1,7 @@
 class ArticleBodiesController < ApplicationController
   before_action :authenticate_user!
-  before_action :select_article_body, except: [:new, :create]
-  before_action :select_article
+  before_action :set_article_body, except: [:new, :create]
+  before_action :set_article
   before_action :require_user_or_contributor, except: [:show, :make_stable]
   before_action :require_user, only: [:make_stable]
   before_action :define_body, only: [:create, :update]
@@ -41,12 +41,7 @@ class ArticleBodiesController < ApplicationController
   end
 
   def make_stable
-    @article.article_bodies.each do |body|
-      if body.stable_version == true
-        body.stable_version = false
-        body.save
-      end
-    end
+    @article.article_bodies.where(stable_version: true).update(stable_version: false)
     @article_body.stable_version = true
     if @article_body.save
       flash[:notice] = "Version #{@article_body.version} is now the stable"
@@ -60,11 +55,11 @@ class ArticleBodiesController < ApplicationController
     params.require(:article_body).permit(:body, :article_id)
   end
 
-  def select_article_body
+  def set_article_body
     @article_body = ArticleBody.find(params[:id])
   end
 
-  def select_article
+  def set_article
     @article = Article.find(params[:article_id])
   end
 

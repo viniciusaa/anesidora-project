@@ -4,9 +4,9 @@
   <p>
     Name: <b><%= @user.full_name %></b>
     <br />
-    Number of articles: <%= @articles.count %>
+    Number of articles: <%= @user.articles.count %>
     <br />
-    Number of contributions: <%= @contributions.count %>
+    Number of contributions: <%= @user.contributions.count %>
     <br />
     Signed in: <%= @user.created_at.strftime("%d/%m/%Y") %>
   </p>
@@ -80,7 +80,7 @@
 <% end %>
 <% else %>
   <div class="mspace danger">
-    <h5>Not contributing to any article</h5>
+    <h5>No contributions to display</h5>
   </div>
 <% end %>
 

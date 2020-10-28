@@ -1,19 +1,19 @@
 class ContributorsController < ApplicationController
   require "will_paginate/array"
   before_action :authenticate_user!
-  before_action :select_article
-  before_action :select_user, except: [:index]
+  before_action :set_article
+  before_action :set_user, except: [:index]
   before_action :require_same_user, except: [:destroy]
   before_action :require_same_user_or_contributor, only: [:destroy]
 
   def index
-    @users = User.all.reject {
-      |user| user == current_user || @article.contributors.include?(user)
+    @users = User.all.select { |user|
+      user != current_user && @article.contributors.exclude?(user)
     }.paginate(page: params[:page], per_page: 5)
   end
 
   def destroy
-    contribution = Contribution.where(user_id: @user.id, article_id: @article.id).first
+    contribution = Contribution.find_by(user_id: @user.id, article_id: @article.id)
     contribution.destroy
     flash[:notice] = "#{@user.first_name} is no longer a contributor"
     redirect_to articles_path
@@ -31,11 +31,11 @@ class ContributorsController < ApplicationController
 
   private
 
-  def select_article
+  def set_article
     @article = Article.find(params[:article_id])
   end
 
-  def select_user
+  def set_user
     @user = User.find(params[:id])
   end
 

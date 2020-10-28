@@ -4,14 +4,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @articles = @user.articles.reject { |article|
-      article.private == true unless
-      @user == current_user || article.contributors.include?(current_user)
+
+    @articles = @user.articles.select { |article|
+      article.user == current_user  || article.contributors.include?(current_user) || !article.private
     }.paginate(page: params[:articles_page], per_page: 5)
 
-    @contributions = @user.doings.reject { |article|
-      article.private == true unless
-      @user == current_user || article.contributors.include?(current_user)
+    @contributions = @user.collaborations.select { |article|
+      article.user == current_user  || article.contributors.include?(current_user) || !article.private
     }.paginate(page: params[:contributions_page], per_page: 5)
   end
 

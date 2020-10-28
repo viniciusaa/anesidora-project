@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   require "will_paginate/array"
   before_action :authenticate_user!
-  before_action :select_article, except: [:new, :create, :index]
+  before_action :set_article, except: [:new, :create, :index]
   before_action :require_same_user, only: [:edit, :update, :destroy, :change_privacy]
 
   def new
@@ -32,23 +32,21 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all.reject { |article|
-      article.private == true unless
-      article.user == current_user || article.contributors.include?(current_user)
+    @articles = Article.all.select { |article|
+      article.user == current_user || article.contributors.include?(current_user) || !article.private
     }.paginate(page: params[:page], per_page: 5)
   end
 
   def show
-    if @article.private == true
-      unless @article.user == current_user || @article.contributors.include?(current_user)
-        flash[:alert] = "Only the article owner or contributor can perform this action"
-        redirect_to root_path
-      end
+    if @article.private && (@article.user != current_user && @article.contributors.exclude?(current_user))
+      flash[:alert] = "Only the article owner or contributor can perform this action"
+      redirect_to root_path
     end
 
     @contributors = @article.contributors.paginate(page: params[:page], per_page: 5)
 
     @article_bodies = @article.article_bodies.paginate(page: params[:page], per_page: 5)
+
     stable = @article.article_bodies.where(stable_version: true).first
     if stable
       @stable_body_version = stable
@@ -67,12 +65,14 @@ class ArticlesController < ApplicationController
   def change_privacy
     if @article.private
       @article.private = false
+
       if @article.save
         flash[:notice] = "Article is now public, all users will be able to see it"
         redirect_to article_path(@article)
       end
     else
       @article.private = true
+      
       if @article.save
         flash[:notice] = "Article is now private, only the owner and contributors will be able to see it"
         redirect_to article_path(@article)
@@ -86,7 +86,7 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:name, :user_id, :private)
   end
 
-  def select_article
+  def set_article
     @article = Article.find(params[:id])
   end
 
