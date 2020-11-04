@@ -53,7 +53,6 @@ class ArticlesController < ApplicationController
     else
       @stable_body_version = @article.article_bodies.first
     end
-
   end
 
   def destroy
@@ -63,21 +62,7 @@ class ArticlesController < ApplicationController
   end
 
   def change_privacy
-    if @article.private
-      @article.private = false
-
-      if @article.save
-        flash[:notice] = "Article is now public, all users will be able to see it"
-        redirect_to article_path(@article)
-      end
-    else
-      @article.private = true
-      
-      if @article.save
-        flash[:notice] = "Article is now private, only the owner and contributors will be able to see it"
-        redirect_to article_path(@article)
-      end
-    end
+    Privacy.toggle_privacy(@article)
   end
 
   private

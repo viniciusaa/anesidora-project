@@ -41,8 +41,7 @@ class ArticleBodiesController < ApplicationController
   end
 
   def make_stable
-    @article.article_bodies.where(stable_version: true).update(stable_version: false)
-    @article_body.stable_version = true
+    Stability.switch_stable_body(@article, @article_body)
     if @article_body.save
       flash[:notice] = "Version #{@article_body.version} is now the stable"
       redirect_to article_path(@article)
