@@ -64,7 +64,7 @@ class ArticlesController < ApplicationController
   def change_privacy
     Privacy.toggle_privacy(@article)
     flash[:notice] = "Article privacy updated"
-    redirect_to article_path(article)
+    redirect_to article_path(@article)
   end
 
   private

@@ -4,13 +4,8 @@
   </div>
   <div class="space">
     <%= link_to "Edit title", edit_article_path(@article), class: "btn btn-sm btn-success" %>
-    <% if @article.private == false %>
-      <%= link_to "Change visibility", [:change_privacy, @article], data: {confirm: "Are you sure?"},
-                                                               class: "btn btn-sm btn-success" %>
-    <% else %>
-      <%= link_to "Change visibility", [:change_privacy, @article], data: {confirm: "Are you sure?"},
-                                                              class: "btn btn-sm btn-success" %>
-    <% end %>
+    <%= link_to "Change visibility", [:change_privacy, @article], data: {confirm: "Are you sure?"},
+                                                                  class: "btn btn-sm btn-success" %>
     <%= link_to "Delete article", article_path(@article),
                                   method: :delete,
                                   data: {confirm: "Are you sure?"},
